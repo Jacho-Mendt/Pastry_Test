@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Benvenuti nella Pagina della Pasticceria Test!</title>
+    </head>
+    <body>
+		<div id ="title">
+			<h1>{{ page_title }}</h1>
+		</div>
+        <div id="flash messages">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="flash-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+		<div id="sidebar">
+			<div id = "loginForm">
+				{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+				{% block loginForm %}
+					<a href="/login">Login!</a>
+                    <a href="/register">Registrati!</a>
+				{% endblock %}
+				{% else %}
+					Benvenuto {{ app.user.username}}! 
+					<a href="/logout">Logout</a>
+				{% endif %}
+			</div>
+			{% block sidebar %}
+			     <a href="/">Torna alla home page</a>
+			{% endblock %}
+		</div>
+		<div id = "content">
+			{% block content %}
+                <h1>Benvenuti nella homepage della Pasticceria Test!</h1>
+                <a href="/pastries">Accedi alla lista delle paste</a>
+			{% endblock %}
+		</div>
+    </body>
+</html>

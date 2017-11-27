@@ -1,0 +1,21 @@
+{% extends 'navigation/basePage.html.twig' %}
+{% block content %}
+    <div id='pastriesTable'>
+        <table>
+            {% if pastriesToShow|length > 1 %}
+                {% for pastry in pastriesToShow %}
+                    <tr>
+                        <td><a href="/pastries/{{pastry.id}}">{{pastry.name}}</a></td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr><td>Nome: </td><td>{{pastriesToShow[0].name}}</td></tr>
+                <tr><td>Descrizione: </td><td>{{pastriesToShow[0].description}}</td></tr>
+                <tr><td>Prezzo: </td><td>{{pastriesToShow[0].price}}</td></tr>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <tr><td><a href="/pastries/{{pastriesToShow[0].id}}/edit">Modifica</a></td></tr>
+                {% endif %}
+            {% endif%}
+        </table>
+    </div>
+{% endblock %}
